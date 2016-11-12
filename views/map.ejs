@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>MAP</title>
+  </head>
+  <body>
+    <div id="map" style="width:100%;height:500px">
+    </div>
+    <script>
+    <%for(i=0;i<address.length;i++){%>
+      function myMap(){
+        var myCenter = new google.maps.LatLng(<%- JSON.stringify(address[i].latitude)%>,<%-JSON.stringify(address[i].longitude)%>);
+        var mapCanvas = document.getElementById('map');
+        var mapOptions = {center: myCenter,zoom:50};
+        var map = new google.maps.Map(mapCanvas,mapOptions);
+        var marker = new google.maps.Marker({position: myCenter});
+        marker.setMap(map);
+        var infowindow = new google.maps.InfoWindow({
+          content:<%-JSON.stringify(t)%>
+        });
+        infowindow.open(map,marker);
+      }
+<%}%>
+    </script>
+    <script src="http://maps.googleapis.com/maps/api/js?callback=myMap">
+
+    </script>
+  </body>
+</html>
